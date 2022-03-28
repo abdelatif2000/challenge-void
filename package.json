@@ -1,6 +1,7 @@
 {
   "name": "challenge-project",
   "version": "0.1.0",
+
   "private": true,
   "dependencies": {
     "@tailwindcss/typography": "github:tailwindcss/typography",
