@@ -2,7 +2,6 @@ import Item from "../components/Item";
 import axios from "axios";
 import Modal from "../components/modal";
 import { useEffect, useState } from "react";
-import api from './api.txt'
 
 function Home(){
   const [data, setData] = useState([]);
@@ -13,10 +12,8 @@ function Home(){
   const getDate=(id)=>{
     const fetchData = async () =>{
       try {
-       const {data: response} = await axios.get(api);
-       let item=response.data.find((item)=>item.id=id);
-       console.log(item);
-       let iframe=item.attributes.field_elsan_rdv.uri;
+       const {data: response} = await axios.get(`https://elsan.void.fr/fr/jsonapi/node/elsan_praticien/${id}`);
+       let iframe=response.data.attributes.field_elsan_rdv.uri;
        setIsOpen(true);
        setIframe(iframe);
       } catch (error) {
@@ -25,18 +22,17 @@ function Home(){
     }
     fetchData();
  } 
-//handel close modal 'rendez vous'
+// handel close modal 'rendez vous'
  const handelCloseModal=()=>{
     setIsOpen(false); 
  }
-  //i am just use the onoffline data because ' CORS' block all my request 
-  //get the data use API:
-  useEffect(() => {
+  // get the data use API:
+  useEffect(()=> {  
     const fetchData = async () => {
       setLoading(true);
       try {
-        const {data: response } = await axios.get(
-          api
+        const { data: response } = await axios.get(
+          " https://elsan.void.fr/fr/jsonapi/node/elsan_praticien",
         );
         setData(response.data);
       } catch (error) {
